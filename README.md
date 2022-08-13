@@ -1,4 +1,4 @@
-# Using Yellin's Maximum Gap Method to Estimate the Upper Counter Limit of a Gaussian Peak Buried in Exponential Background from scratch
+# Using Yellin's Maximum Gap Method to Estimate the Upper Count Limit of a Gaussian Peak Buried in Exponential Background from scratch
 
 The code runs on python3 with additional packages:
 
