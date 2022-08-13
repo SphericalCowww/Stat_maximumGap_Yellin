@@ -142,9 +142,9 @@ def main():
         rangeNorm = [0.0, 200.0]; binNNorm = 200; 
 #dataframe from pickle
     if incBoundary == True:
-        pickleName = "maxGapHists.pickle";
+        pickleName = "pickle/maxGapHists.pickle";
     else:
-        pickleName = "maxGapHistsNoBd.pickle";
+        pickleName = "pickle/maxGapHistsNoBd.pickle";
     df = pd.read_pickle(pickleName);
     NN = df[df["inGapPtN"] == 0]["dataPtN"].size;
     mGapPDFss = [0]*NN;
@@ -172,7 +172,7 @@ def main():
         for i in range(J):
             mGapNss[J].insert(0, J-1-i);
 
-    dfAlpha = pd.read_pickle("MCerrRateAlpha.pickle");
+    dfAlpha = pd.read_pickle("pickle/MCerrRateAlpha.pickle");
     dfAlpha = dfAlpha[(dfAlpha["rangeL"] == rangeG[0] - signalMu)&\
                       (dfAlpha["rangeU"] == rangeG[1] - signalMu)];
     normFactor = stats.norm.cdf(rangeG[1]-signalMu)\
@@ -236,7 +236,7 @@ def main():
             while listA[iterAU][1] < alpha:
                 iterAU += 1;
                 if iterAU >= len(listA):
-                    print("WARNING: MCerrRateAlpha.pickle reaching\
+                    print("WARNING: pickle/MCerrRateAlpha.pickle reaching\
                            alpha input upper bound at S=", alphaRefSignalN);
                     iterAU -= 1;
                     break;

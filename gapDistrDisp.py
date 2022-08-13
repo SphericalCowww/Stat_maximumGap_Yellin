@@ -44,9 +44,9 @@ def main():
     np.random.seed(2);
 #reading pickle
     if incBoundary == True:
-        pickleName = "maxGapHists.pickle";
+        pickleName = "pickle/maxGapHists.pickle";
     else:
-        pickleName = "maxGapHistsNoBd.pickle";
+        pickleName = "pickle/maxGapHistsNoBd.pickle";
     df = pd.read_pickle(pickleName);
     df = df[df["dataPtN"] == dataPtN];
     if df.empty == True:

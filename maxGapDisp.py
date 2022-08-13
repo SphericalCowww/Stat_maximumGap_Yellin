@@ -23,7 +23,7 @@ def main():
     verbosity = 1;
     incBoundary = True;
 #reading pickle
-    pickleName = "c0cMAXHigherBounds.pickle";
+    pickleName = "pickle/c0cMAXHigherBounds.pickle";
     df = pd.read_pickle(pickleName);
     df = df[df["noiseN"] != 0];
     df = df.drop(df[df["signalN"] == 0].index);

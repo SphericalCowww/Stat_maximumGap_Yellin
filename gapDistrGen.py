@@ -72,9 +72,9 @@ def main():
 #pickle dataframe
     if testMode == False:
         if incBoundary == True:
-            pickleName = "maxGapHists.pickle";
+            pickleName = "pickle/maxGapHists.pickle";
         else:
-            pickleName = "maxGapHistsNoBd.pickle";
+            pickleName = "pickle/maxGapHistsNoBd.pickle";
         if verbosity >= 1:
             print("Storing the distributions in " + pickleName + "...");
         try:

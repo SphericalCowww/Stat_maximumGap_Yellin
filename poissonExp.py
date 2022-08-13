@@ -72,7 +72,7 @@ def main():
     if dataN > 60:
         rangeNorm = [0.0, 200.0]; binNNorm = 200; 
 #reading c0s, cMAXs from pickle
-    pickleName = "c0cMAXHigherBounds.pickle";
+    pickleName = "pickle/c0cMAXHigherBounds.pickle";
     df = pd.read_pickle(pickleName);
     df = df[df["signalN"] == signalN]; 
     df = df[df["noiseN"] == noiseN];

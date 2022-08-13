@@ -139,9 +139,9 @@ def main():
         rangeNorm = [0.0, 200.0]; binNNorm = 200; 
 #dataframe from pickle
     if incBoundary == True:
-        pickleName = "maxGapHists.pickle";
+        pickleName = "pickle/maxGapHists.pickle";
     else:
-        pickleName = "maxGapHistsNoBd.pickle";
+        pickleName = "pickle/maxGapHistsNoBd.pickle";
     df = pd.read_pickle(pickleName);
     NN = df[df["inGapPtN"] == 0]["dataPtN"].size;
     mGapPDFss = [0]*NN;
