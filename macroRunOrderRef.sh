@@ -4,7 +4,7 @@ PYTHON_PATH=/opt/local/bin
 #get gap distribution; indepedent from data
 for j in `seq 0 1 120`
 do
-    time $PYTHON_PATH/python3 gapDistrGen.py $j         #note: turn "testMode = False;" in the code
+    time $PYTHON_PATH/python3 gapDistrGen.py $j
     time $PYTHON_PATH/python3 gapDistrDisp.py $j
 done
 

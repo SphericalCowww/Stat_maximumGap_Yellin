@@ -1,4 +1,4 @@
-import sys, math, re, time, os
+import sys, math, re, time, os, pathlib
 
 import numpy as np
 import pandas as pd
@@ -32,8 +32,6 @@ def maxGapProb0N(x, mu, n):
         #pn += pow(-1, k)*special.comb(n+1, k, exact=True)*pow(1-k*x/mu, n);#old
     return pn;
 ###################################################################################
-
-    
 def main():
     if len(sys.argv) < 2:
         print("Please input the number of data points.");
@@ -45,8 +43,8 @@ def main():
     dataPtN = int(sys.argv[1]);
     np.random.seed(2);
 #reading pickle
-    if incBoundary == True: pickleName = "pickle/maxGapHists_Ref.pickle";
-    else:                   pickleName = "pickle/maxGapHistsNoBd_Ref.pickle";
+    if incBoundary == True: pickleName = "pickleRef/maxGapHists.pickle";
+    else:                   pickleName = "pickleRef/maxGapHistsNoBd.pickle";
     df = pd.read_pickle(pickleName);
     df = df[df["dataPtN"] == dataPtN];
     if df.empty == True:
@@ -124,14 +122,14 @@ def main():
         strTemp = "sample size: " + "{:n}".format(gapSampleN);
         ax1.text(xmin+0.01*(xmax-xmin),ymax-0.04*(ymax-ymin),strTemp,fontsize=12);
 
+        pathlib.Path("figure/gapDistr").mkdir(parents=True, exist_ok=True)
+        filenameFig = "figure/gapDistr/gapDistrN"+str(dataPtN)+"J"+str(i)+".png";
         gs.tight_layout(fig);
-        filenameFig = exepath+"/dataFig/gapDistrN"+str(dataPtN)+"J"+str(i)+".png";
         plt.savefig(filenameFig);
         if verbosity >= 1:
             print("    ", filenameFig);
         if i == 0:
             ax1.plot(nbins, maxGapProbDistr, linewidth=1, color="red");
-            filenameFig = filenameFig.replace("/dataFig/", "/dataFig/--J0/");
             plt.savefig(filenameFig);
             if verbosity >= 1:
                 print("    ", filenameFig);

@@ -20,9 +20,7 @@ warnings.filterwarnings("ignore");
 
 ################################################################################## 
 def main():
-    testMode = True;
-    dataPtN = 10;
-    gapSampleN = 20000;
+    testMode = False; dataPtN = 10; gapSampleN = 20000;
     if len(sys.argv) < 2:
         print("WARNING: Test Mode.");
         testMode = True;
