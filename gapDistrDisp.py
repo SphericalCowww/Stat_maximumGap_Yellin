@@ -20,24 +20,20 @@ warnings.filterwarnings("ignore");
 ###################################################################################
 SNUMBER = pow(10, -124);
 def maxGapProb0N(x, mu, n):
-    if x < SNUMBER:
-        return 0;
+    if x < SNUMBER: return 0;
     m = min(10, math.floor(mu/x));
     pn = 0;
     for k in range(m+1):
         pk = 1;
-        for i in range(1, k+1, 1):
-            pk = pk*(-1)*((n+1-k+i)/i)*(1-k*x/mu);
+        for i in range(1, k+1, 1): pk = pk*(-1)*((n+1-k+i)/i)*(1-k*x/mu);
         pn += pk*pow(1-k*x/mu, n-k);
         #pn += pow(-1, k)*special.comb(n+1, k, exact=True)*pow(1-k*x/mu, n);#old
     return pn;
 ###################################################################################
 def main():
-    if len(sys.argv) < 2:
-        print("Please input the number of data points.");
-        print("Run stops.")
-        sys.exit(0);
-
+    if len(sys.argv) < 2: 
+        AssertionError("ERROR: Please input the number of data points")
+    
     verbosity = 1;
     incBoundary = True;
     dataPtN = int(sys.argv[1]);
@@ -94,7 +90,7 @@ def main():
     ax0.plot(nbins, dataHist, linewidth=2, color="blue", linestyle="steps-mid");
     ax0.axhline(y=0, xmin=0, xmax=1, color="black", linewidth=2);
     ax0.set_title("Uniform Distribution", fontsize=24, y=1.03);
-    ax0.set_xlabel("x", fontsize=18);
+    ax0.set_xlabel("y", fontsize=18);
     ax0.set_ylabel("count", fontsize=18);
     ax0.set_xlim(rangeX[0]-0.1, rangeX[1]+0.1);
     #plot 1
@@ -112,7 +108,7 @@ def main():
         ax1.axhline(y=0, xmin=0, xmax=1, color="black", linewidth=2);
         strTemp = "Max Gap Distr, N=" + str(dataPtN) + ", J=" + str(i);
         ax1.set_title(strTemp, fontsize=24, y=1.03);
-        ax1.set_xlabel("max gap", fontsize=18);
+        ax1.set_xlabel("x", fontsize=18);
         ax1.set_ylabel("count", fontsize=18);
         ax1.set_xlim(rangeX[0]-0.1, rangeX[1]+0.1);
         if i < len(maxGapHists) - 2:
@@ -126,13 +122,10 @@ def main():
         filenameFig = "figure/gapDistr/gapDistrN"+str(dataPtN)+"J"+str(i)+".png";
         gs.tight_layout(fig);
         plt.savefig(filenameFig);
-        if verbosity >= 1:
-            print("    ", filenameFig);
         if i == 0:
             ax1.plot(nbins, maxGapProbDistr, linewidth=1, color="red");
             plt.savefig(filenameFig);
-            if verbosity >= 1:
-                print("    ", filenameFig);
+        if verbosity >= 1: print("    ", filenameFig);
         ax1.cla();
 
 ###################################################################################
