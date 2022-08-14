@@ -39,8 +39,8 @@ def main():
     dataPtN = int(sys.argv[1]);
     np.random.seed(2);
 #reading pickle
-    if incBoundary == True: pickleName = "pickleRef/maxGapHists.pickle";
-    else:                   pickleName = "pickleRef/maxGapHistsNoBd.pickle";
+    if incBoundary == True: pickleName = "pickleRef/maxGapDistr.pickle";
+    else:                   pickleName = "pickleRef/maxGapDistrNoBd.pickle";
     df = pd.read_pickle(pickleName);
     df = df[df["dataPtN"] == dataPtN];
     if df.empty == True:
@@ -118,8 +118,9 @@ def main():
         strTemp = "sample size: " + "{:n}".format(gapSampleN);
         ax1.text(xmin+0.01*(xmax-xmin),ymax-0.04*(ymax-ymin),strTemp,fontsize=12);
 
-        pathlib.Path("figure/gapDistr").mkdir(parents=True, exist_ok=True)
-        filenameFig = "figure/gapDistr/gapDistrN"+str(dataPtN)+"J"+str(i)+".png";
+        pathlib.Path("figure/maxGapDistr").mkdir(parents=True, exist_ok=True);
+        filenameFig  = "figure/maxGapDistr/"
+        filenameFig += "maxGapDistrN"+str(dataPtN)+"J"+str(i)+".png";
         gs.tight_layout(fig);
         plt.savefig(filenameFig);
         if i == 0:

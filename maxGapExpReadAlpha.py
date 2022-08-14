@@ -19,11 +19,10 @@ import warnings
 warnings.filterwarnings("ignore");
 
 
+###################################################################################
 BREAKBOUND = pow(10.0, -3);
 LOWBOUND   = pow(10.0, -9);
 SNUMBER    = pow(10.0, -124);
-
-
 def maxGapProb0N(x, mu, n):
     if x < SNUMBER:
         return 0;
@@ -104,15 +103,7 @@ def mGapMCProb_lambda(CDFs_x, Ns, mu):
 def mGapMCOpt_lambda(CDFs_x, Ns, mu, alpha):
     return lambda norm : abs(mGapMCGetProb(CDFs_x, Ns, norm*mu) - alpha);
 
-
-
-
-
-
-
-
-
-
+###################################################################################
 def main():
     if len(sys.argv) < 2:
         print("Please input the number of signal data points.");
@@ -141,10 +132,8 @@ def main():
     if dataN > 60:
         rangeNorm = [0.0, 200.0]; binNNorm = 200; 
 #dataframe from pickle
-    if incBoundary == True:
-        pickleName = "pickle/maxGapHists.pickle";
-    else:
-        pickleName = "pickle/maxGapHistsNoBd.pickle";
+    if incBoundary == True: pickleName = "pickleRef/maxGapHists.pickle";
+    else:                   pickleName = "pickleRef/maxGapHistsNoBd.pickle";
     df = pd.read_pickle(pickleName);
     NN = df[df["inGapPtN"] == 0]["dataPtN"].size;
     mGapPDFss = [0]*NN;
@@ -371,6 +360,7 @@ def main():
         print("Creating the following files:");
         print("    ", filenameFig);
 
+###################################################################################
 if __name__ == "__main__":
     print("\n##############################################################Head");
     main();

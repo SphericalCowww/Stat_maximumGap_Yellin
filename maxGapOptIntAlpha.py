@@ -1,4 +1,4 @@
-import sys, math, re, time, os
+import sys, math, re, time, os, pathlib
 
 import numpy as np
 import pandas as pd
@@ -18,12 +18,10 @@ locale.setlocale(locale.LC_ALL, "");
 import warnings
 warnings.filterwarnings("ignore");
 
-
+###################################################################################
 BREAKBOUND = pow(10.0, -3);
 LOWBOUND   = pow(10.0, -9);
 SNUMBER    = pow(10.0, -124);
-
-
 def maxGapProb0N(x, mu, n):
     if x < SNUMBER:
         return 0;
@@ -106,15 +104,7 @@ def mGapMCProb_lambda(CDFs_x, Ns, mu):
 def mGapMCOpt_lambda(CDFs_x, Ns, mu, alpha):
     return lambda norm : abs(mGapMCGetProb(CDFs_x, Ns, norm*mu) - alpha);
 
-
-
-
-
-
-
-
-
-
+###################################################################################
 def main():
     if len(sys.argv) < 2:
         print("Please input the number of signal data points.");
@@ -135,13 +125,10 @@ def main():
     signalMu    = 0.0;
     signalSig   = 1.0;
     rangeNorm = [0.0, 100.0]; binNNorm = 100;
-    if signalN > 60:
-        rangeNorm = [0.0, 200.0]; binNNorm = 200; 
+    if signalN > 60: rangeNorm = [0.0, 200.0]; binNNorm = 200; 
 #dataframe from pickle
-    if incBoundary == True:
-        pickleName = "pickle/maxGapHists.pickle";
-    else:
-        pickleName = "pickle/maxGapHistsNoBd.pickle";
+    if incBoundary == True: pickleName = "pickleRef/maxGapDistr.pickle";
+    else:                   pickleName = "pickleRef/maxGapDistrNoBd.pickle";
     df = pd.read_pickle(pickleName);
     NN = df[df["inGapPtN"] == 0]["dataPtN"].size;
     mGapPDFss = [0]*NN;
@@ -169,8 +156,7 @@ def main():
         for i in range(J):
             mGapNss[J].insert(0, J-1-i);
 ##Yellin's C0 and CMAX
-    if verbosity >= 1:
-        print("Sampling the lower bound with signalN=" + str(signalN) + ":");
+    if verbosity >= 1: print("Sampling the lower bound with signalN=" + str(signalN) + ":");
     nbins = np.linspace(rangeX[0], rangeX[1], binN+1);
     nbins = nbins[:-1];
     signalCDF = gausCDF_lambda(signalMu, signalSig);    #signal shape
@@ -242,7 +228,8 @@ def main():
                   [alpha, 1.0*len(cMAXsAlphaGood[a])/len(cMAXsAlpha[a])]);
             print("  ", cMAXsAlpha[a]);
 #pickle save
-    pickleName = "MCerrRateAlpha.pickle";
+    pathlib.Path("pickle").mkdir(exist_ok=True);
+    pickleName = "pickle/maxGapOptIntAlpha.pickle";
     try:
         df = pd.read_pickle(pickleName);
     except (OSError, IOError) as e:
@@ -300,8 +287,8 @@ def main():
     ax0.axhline(y=0,       xmin=0, xmax=1, color="black", linewidth=2);
     ax0.axvline(x=signalN, ymin=0, ymax=1, color="blue",  linewidth=2, alpha=0.5);
 #save plots
-    exepath = os.path.dirname(os.path.abspath(__file__));
-    filenameFig = exepath + "/dataFig/-alphaJoptS";
+    pathlib.Path("figure/maxGapOptIntAlpha").mkdir(parents=True, exist_ok=True);
+    filenameFig = "figure/maxGapOptIntAlpha/alphaJoptS";
     filenameFig = filenameFig + str(signalN) + ".png";
     gs.tight_layout(fig);
     plt.savefig(filenameFig);

@@ -30,7 +30,7 @@ def main():
     rangeX = [0.0, 1.0];
 
     np.random.seed(2);
-    incBoundary = True;
+    incBoundary = True; #the boundary is included in Yellin's paper
     if testMode == False:
         dataPtN     = int(sys.argv[1]);
         gapSampleN  = 10000000;
@@ -62,8 +62,8 @@ def main():
 #pickle dataframe
     if testMode == False:
         pathlib.Path("pickle").mkdir(exist_ok=True);
-        if incBoundary == True: pickleName = "pickle/maxGapHists.pickle";
-        else:                   pickleName = "pickle/maxGapHistsNoBd.pickle";
+        if incBoundary == True: pickleName = "pickle/maxGapDistr.pickle";
+        else:                   pickleName = "pickle/maxGapDistrNoBd.pickle";
         if verbosity >= 1:
             print("Storing the distributions in " + pickleName + "...");
         try:
