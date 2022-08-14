@@ -7,7 +7,7 @@ The code runs on python3 with additional packages:
     ./macroRunOrderRef.sh
 With the PYTHONPATH set correctly for `macroRunOrderRef.sh`. However, even then the above with take days to run, `macroRunOrderRef.sh` is more of a reference to guide the order of the python codes to run.
     
-`mergePickle.pyy`: helper code for merging two pickle files to avoid having to run through the entire for loop (see `macroRunOrderRef.sh`) for each output reference pickle files.
+`mergePickle.py`: helper code for merging two pickle files to avoid having to run through the entire for loop (see `macroRunOrderRef.sh`) for each output reference pickle files.
 
 `uniTransSampling.py`: example code for inverse transform sampling to understand "distributed uniformly with unit density" to describe Eq.2 in Yellin's paper (<a href="https://arxiv.org/abs/physics/0203002">arxiv</a>).
 
