@@ -1,9 +1,5 @@
-import sys, math
-import re
-import math
+import sys, math, re, time, os, pathlib
 from scipy.special import erfinv
-import time
-import os
 
 import numpy as np
 import matplotlib as mpl
@@ -19,13 +15,13 @@ warnings.filterwarnings("ignore");
 
 SNUMBER = pow(10, -124);
 
-
+##################################################################################
 #https://stephens999.github.io/fiveMinuteStats/inverse_transform_sampling.html
 def expInvCDF(L, x):
     return -np.log(1 - x)/L;
 def gausInvCDF(mu, sig, x):
     return erfinv(2*x - 1)*sig*np.sqrt(2) + mu;
-
+##################################################################################
 def main():
     verbosity = 1;
     binN = 100;
@@ -80,15 +76,15 @@ def main():
     ax2.set_xlim(rangeX[0], rangeX[1]);
     ax2.set_ylim(bottom=0);
 #save plots
-    exepath = os.path.dirname(os.path.abspath(__file__));
-    filenameFig = exepath + "/fig/invTransSampling.png";
+    pathlib.Path("figure").mkdir(exist_ok=True);
+    filenameFig = "figure/invTransSampling.png";
     gs.tight_layout(fig);
     plt.savefig(filenameFig);
 
     if verbosity >= 1:
         print("Creating the following files:");
         print(filenameFig);
-
+##################################################################################
 if __name__ == "__main__":
     print("\n##############################################################Head");
     main();

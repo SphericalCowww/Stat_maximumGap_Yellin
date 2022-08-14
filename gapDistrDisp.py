@@ -17,6 +17,7 @@ locale.setlocale(locale.LC_ALL, "");
 import warnings
 warnings.filterwarnings("ignore");
 
+###################################################################################
 SNUMBER = pow(10, -124);
 def maxGapProb0N(x, mu, n):
     if x < SNUMBER:
@@ -30,6 +31,7 @@ def maxGapProb0N(x, mu, n):
         pn += pk*pow(1-k*x/mu, n-k);
         #pn += pow(-1, k)*special.comb(n+1, k, exact=True)*pow(1-k*x/mu, n);#old
     return pn;
+###################################################################################
 
     
 def main():
@@ -43,10 +45,8 @@ def main():
     dataPtN = int(sys.argv[1]);
     np.random.seed(2);
 #reading pickle
-    if incBoundary == True:
-        pickleName = "pickle/maxGapHists.pickle";
-    else:
-        pickleName = "pickle/maxGapHistsNoBd.pickle";
+    if incBoundary == True: pickleName = "pickle/maxGapHists_Ref.pickle";
+    else:                   pickleName = "pickle/maxGapHistsNoBd_Ref.pickle";
     df = pd.read_pickle(pickleName);
     df = df[df["dataPtN"] == dataPtN];
     if df.empty == True:
@@ -58,18 +58,10 @@ def main():
     rangeXs = df["range"].values.tolist();
     binN   = 0;
     rangeX = [0.0, 1.0];
-    if len(np.unique(np.array(binNs))) == 1:
-        binN = binNs[0];
-    else:
-        print("ERROR: the bin sizes are inconsistent.");
-        print("Run stops.")
-        sys.exit(0);
-    if len(np.unique(np.array(rangeXs))) == 2:
-        rangeX = rangeXs[0];
-    else:
-        print("ERROR: the x ranges are inconsistent.");
-        print("Run stops.")
-        sys.exit(0);
+    if len(np.unique(np.array(binNs))) == 1: binN = binNs[0];
+    else: raise AssertionError("ERROR: the bin sizes are inconsistent");
+    if len(np.unique(np.array(rangeXs))) == 2: rangeX = rangeXs[0];
+    else: raise AssertionError("ERROR: the x ranges are inconsistent");
     gapSampleNs = df["gapSampleN"].values.tolist();
     inGapPtNs   = df["inGapPtN"].values.tolist();
     maxGapHists = df["PDF"].values.tolist();
@@ -145,6 +137,7 @@ def main():
                 print("    ", filenameFig);
         ax1.cla();
 
+###################################################################################
 if __name__ == "__main__":
     print("\n##############################################################Head");
     main();
