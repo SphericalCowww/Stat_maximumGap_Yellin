@@ -18,7 +18,6 @@ done
 for j in `seq 1 1 60`
 do
    time $PYTHON_PATH/python3 maxGapExp.py $j
-   time $PYTHON_PATH/python3 maxGapExpReadAlpha.py $j
    time $PYTHON_PATH/python3 poissonExp.py $j
 done
 time $PYTHON_PATH/python3 maxGapDisp.py
