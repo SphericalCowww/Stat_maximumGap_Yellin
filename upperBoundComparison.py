@@ -1,4 +1,4 @@
-import sys, math, re, time, os
+import sys, math, re, time, os, pathlib
 
 import numpy as np
 import pandas as pd
@@ -17,13 +17,13 @@ locale.setlocale(locale.LC_ALL, "");
 import warnings
 warnings.filterwarnings("ignore");
 
+###################################################################################
 SNUMBER = pow(10, -124);
-    
 def main():
     verbosity = 1;
     incBoundary = True;
 #reading pickle
-    pickleName = "pickle/c0cMAXHigherBounds.pickle";
+    pickleName = "pickleRef/c0cMAXUpperBoundsPoisson.pickle";
     df = pd.read_pickle(pickleName);
     df = df[df["noiseN"] != 0];
     df = df.drop(df[df["signalN"] == 0].index);
@@ -62,42 +62,44 @@ def main():
     ax0 = fig.add_subplot(gs[0]);
     ax1 = fig.add_subplot(gs[1]);
 
-
     if poissons is not None:
-        ax0.plot(signalNs, poiMeds, linewidth=2.5, color="orange");
-        ax1.plot(signalNs, poiErrs, linewidth=2.5, color="orange");
-        ax0.set_title("Signal Higher Bound, C0(green)&CMAX(purple)&Poi(orange)",\
+        ax0.plot(signalNs, poiMeds, linewidth=2.5, color="purple");
+        ax1.plot(signalNs, poiErrs, linewidth=2.5, color="purple");
+        ax0.set_title("Signal Higher Bound, C0(green)&CMAX(orange)&Poi(purple)",\
                       fontsize=16, y=1.03);
-        ax1.set_title("Bound Error Ratio, C0(green)&CMAX(purple)&Poi(orange)",\
+        ax1.set_title("Bound Error Ratio, C0(green)&CMAX(orange)&Poi(purple)",\
                       fontsize=16, y=1.03);
     else:
-        ax0.set_title("Signal Higher Bound, C0(green)&CMAX(purple)", \
+        ax0.set_title("Signal Higher Bound, C0(green)&CMAX(orange)", \
                       fontsize=20, y=1.03); 
-        ax1.set_title("Bound Error Ratio, C0(green)&CMAX(purple)", \
+        ax1.set_title("Bound Error Ratio, C0(green)&CMAX(orange)", \
                       fontsize=20, y=1.03); 
     #plot 0
     ax0.plot(signalNs, c0Meds, linewidth=2, color="green");
-    ax0.plot(signalNs, cMAXMeds, linewidth=2, color="purple");
+    ax0.plot(signalNs, cMAXMeds, linewidth=2, color="orange");
     ax0.set_xlabel("true signal count", fontsize=18);
-    ax0.set_ylabel("bound/true count ratio", fontsize=18);
-    ax0.set_xlim(0, 60);
-    ax0.set_ylim(1, 5);
+    ax0.set_ylabel("upper_bound/true_count", fontsize=18);
+    ax0.set_xlim(0, 45);
+    ax0.set_ylim(0.9, 60);
+    ax0.set_yscale("log");
+    ax0.axhline(y=1.0, xmin=0, xmax=1, color="black", linewidth=2);
     #plot 1
     ax1.plot(signalNs, c0Errs, linewidth=2, color="green");
-    ax1.plot(signalNs, cMAXErrs, linewidth=2, color="purple");
+    ax1.plot(signalNs, cMAXErrs, linewidth=2, color="orange");
     ax1.set_xlabel("true signal count", fontsize=18);
     ax1.set_ylabel("error ratio", fontsize=18);
     ax1.set_xlim(0, 60);
-    ax1.set_ylim(0, 0.3);
+    ax1.set_ylim(0, 0.03);
 #save plots
+    pathlib.Path("figure").mkdir(parents=True, exist_ok=True);
+    filenameFig = "figure/c0cMAXUpperBound.png";
     gs.tight_layout(fig);
-    exepath = os.path.dirname(os.path.abspath(__file__));
-    filenameFig = exepath+"/fig/c0cMAXHigherBound.png";
     plt.savefig(filenameFig);
     if verbosity >= 1:
         print("Creating the following files:");
         print("    ", filenameFig);
 
+###################################################################################
 if __name__ == "__main__":
     print("\n##############################################################Head");
     main();

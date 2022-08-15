@@ -34,8 +34,7 @@ def gausCDF_lambda(mu, sig):
     return lambda x : gausCDF_func(mu, sig, x);
 
 def poissonGetProb(n, L):
-    if n == 0:
-        return 1.0;
+    if n == 0: return 1.0;
     return 1.0 - stats.poisson.cdf(n-1, L);
 def poissonProb_lambda(n, mu):
     return lambda norm : poissonGetProb(n, norm*mu);
@@ -210,7 +209,7 @@ def main():
 #save plots
     pathlib.Path("figure/maxGapExp").mkdir(parents=True, exist_ok=True);
     filenameFig = "figure/maxGapExp/maxGapS";
-    filenameFig = filenameFig + str(signalN) + "N" + str(noiseN) + ".png";
+    filenameFig = filenameFig + str(signalN) + "N" + str(noiseN) + "Poisson.png";
     gs.tight_layout(fig);
     plt.savefig(filenameFig);
 
@@ -218,6 +217,7 @@ def main():
         print("Creating the following files:");
         print("    ", filenameFig);
 
+###################################################################################
 if __name__ == "__main__":
     print("\n##############################################################Head");
     main();
