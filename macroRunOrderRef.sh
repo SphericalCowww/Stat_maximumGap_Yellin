@@ -20,5 +20,5 @@ do
    time $PYTHON_PATH/python3 maxGapExp.py $j
    time $PYTHON_PATH/python3 poissonExp.py $j
 done
-time $PYTHON_PATH/python3 maxGapDisp.py
+time $PYTHON_PATH/python3 upperBoundComparison.py
 

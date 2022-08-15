@@ -16,7 +16,6 @@ warnings.filterwarnings("ignore");
 SNUMBER = pow(10, -124);
 
 ##################################################################################
-#https://stephens999.github.io/fiveMinuteStats/inverse_transform_sampling.html
 def expInvCDF(L, x):
     return -np.log(1 - x)/L;
 def gausInvCDF(mu, sig, x):

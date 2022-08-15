@@ -1,4 +1,4 @@
-import sys, math, re, time, os
+import sys, math, re, time, os, pathlib
 
 import numpy as np
 import pandas as pd
@@ -119,9 +119,7 @@ def main():
     alpha = 0.9; 
 
     signalN = int(sys.argv[1]);
-    #noiseN  = 0;                           #noise number
-    noiseN  = 100;                   #noise number
-    #np.random.seed(int(time.time()));
+    noiseN  = 0;                       #noise number
     np.random.seed(2);
 
     dataN   = noiseN + signalN;
@@ -129,8 +127,7 @@ def main():
     signalSig   = 1.0;
     noiseLambda = 1.0;
     rangeNorm = [0.0, 100.0]; binNNorm = 100;
-    if dataN > 60:
-        rangeNorm = [0.0, 200.0]; binNNorm = 200; 
+    if dataN > 60: rangeNorm = [0.0, 200.0]; binNNorm = 200; 
 #dataframe from pickle
     if incBoundary == True: pickleName = "pickleRef/maxGapDistr.pickle";
     else:                   pickleName = "pickleRef/maxGapDistrNoBd.pickle";
@@ -225,7 +222,7 @@ def main():
             while listA[iterAU][1] < alpha:
                 iterAU += 1;
                 if iterAU >= len(listA):
-                    print("WARNING: pickle/MCerrRateAlpha.pickle reaching\
+                    print("WARNING: pickle/maxGapOptIntAlpha.pickle reaching\
                            alpha input upper bound at S=", alphaRefSignalN);
                     iterAU -= 1;
                     break;
@@ -273,7 +270,8 @@ def main():
         print("c0:", c0s, "\n");
         print("cMAX:", cMAXs, "\n");
 #pickle save
-    pickleName = "c0cMAXHigherBounds.pickle";
+    pathlib.Path("pickle").mkdir(parents=True, exist_ok=True);
+    pickleName = "pickle/c0cMAXUpperBounds.pickle";
     try:
         df = pd.read_pickle(pickleName);
     except (OSError, IOError) as e:
@@ -338,8 +336,7 @@ def main():
     ax0.set_xlim(rangeX[0], rangeX[1]);
     ax0.axhline(y=0, xmin=0, xmax=1, color="black", linewidth=2);
     #plot 1
-    ax1.plot(nbinsNorm, c0Hist,\
-             linewidth=2, color="green",  linestyle="steps-mid");
+    ax1.plot(nbinsNorm, c0Hist, linewidth=2, color="green", linestyle="steps-mid");
     ax1.plot(nbinsNorm, cMAXHist,\
              linewidth=2, color="orange", linestyle="steps-mid");
     ax1.set_title("Signal Upper Bound from C0(green)&CMAX(orange)", \
@@ -350,8 +347,8 @@ def main():
     ax1.axhline(y=0, xmin=0, xmax=1, color="black", linewidth=2);
     ax1.axvline(x=signalN, ymin=0, ymax=1, color="blue", linewidth=2, alpha=0.5);
 #save plots
-    exepath = os.path.dirname(os.path.abspath(__file__));
-    filenameFig = exepath + "/dataFig/-maxGapRAS";
+    pathlib.Path("figure/maxGapExp").mkdir(parents=True, exist_ok=True);
+    filenameFig = "figure/maxGapExp/maxGapExpS";
     filenameFig = filenameFig + str(signalN) + "N" + str(noiseN) + ".png";
     gs.tight_layout(fig);
     plt.savefig(filenameFig);
