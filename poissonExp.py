@@ -1,4 +1,4 @@
-import sys, math, re, time, os
+import sys, math, re, time, os, pathlib
 
 import numpy as np
 import pandas as pd
@@ -19,10 +19,10 @@ import warnings
 warnings.filterwarnings("ignore");
 
 
+###################################################################################
 BREAKBOUND = pow(10.0, -3);
 LOWBOUND   = pow(10.0, -9);
 SNUMBER    = pow(10.0, -124);
-
 
 def expCDF_func(L, x):
     return 1.0 - np.exp(-L*x);
@@ -42,8 +42,7 @@ def poissonProb_lambda(n, mu):
 def poissonOpt_lambda(n, mu, alpha):
     return lambda norm : abs(poissonGetProb(n, norm*mu) - alpha);
 
-
-
+###################################################################################
 def main():
     if len(sys.argv) < 2:
         print("Please input the number of signal data points.");
@@ -60,7 +59,7 @@ def main():
 
     signalN = int(sys.argv[1]);
     #noiseN  = 0;                           #noise number
-    noiseN  = 100;             #noise number
+    noiseN  = 10;             #noise number
     np.random.seed(int(time.time()));
     #np.random.seed(2);
 
@@ -72,7 +71,7 @@ def main():
     if dataN > 60:
         rangeNorm = [0.0, 200.0]; binNNorm = 200; 
 #reading c0s, cMAXs from pickle
-    pickleName = "pickle/c0cMAXHigherBounds.pickle";
+    pickleName = "pickleRef/c0cMAXUpperBounds.pickle";
     df = pd.read_pickle(pickleName);
     df = df[df["signalN"] == signalN]; 
     df = df[df["noiseN"] == noiseN];
@@ -116,7 +115,8 @@ def main():
         print("cMAX:", cMAXs, "\n");
         print("Poisson:", poissons, "\n");
 #pickle save
-    pickleName = "c0cMAXHigherBoundsPoisson.pickle";
+    pathlib.Path("pickle").mkdir(parents=True, exist_ok=True);
+    pickleName = "pickle/c0cMAXUpperBoundsPoisson.pickle";
     try:
         df = pd.read_pickle(pickleName);
     except (OSError, IOError) as e:
@@ -194,13 +194,13 @@ def main():
     ax0.set_xlim(rangeX[0], rangeX[1]);
     ax0.axhline(y=0, xmin=0, xmax=1, color="black", linewidth=2);
     #plot 1
-    ax1.plot(nbinsNormPoi, poissonHist, color="orange", alpha=1,\
+    ax1.plot(nbinsNormPoi, poissonHist, color="purple", alpha=1,\
              linewidth=2, linestyle="steps-mid");
     ax1.plot(nbinsNorm, c0Hist, color="green", alpha=1,\
              linewidth=2, linestyle="steps-mid");
-    ax1.plot(nbinsNorm, cMAXHist, color="purple", alpha=1,\
+    ax1.plot(nbinsNorm, cMAXHist, color="orange", alpha=1,\
              linewidth=2, linestyle="steps-mid");
-    ax1.set_title("Signal Upper Bound, C0(green)&CMAX(purple)&Poi(orange)", \
+    ax1.set_title("Signal Upper Bound, C0(green)&CMAX(orange)&Poi(purple)", \
                   fontsize=16, y=1.03);
     ax1.set_xlabel("norm upper bound", fontsize=18);
     ax1.set_ylabel("count", fontsize=18);
@@ -208,8 +208,8 @@ def main():
     ax1.axhline(y=0, xmin=0, xmax=1, color="black", linewidth=2);
     ax1.axvline(x=signalN, ymin=0, ymax=1, color="blue", linewidth=2, alpha=0.5);
 #save plots
-    exepath = os.path.dirname(os.path.abspath(__file__));
-    filenameFig = exepath + "/dataFig/-maxGapS";
+    pathlib.Path("figure/maxGapExp").mkdir(parents=True, exist_ok=True);
+    filenameFig = "figure/maxGapExp/maxGapS";
     filenameFig = filenameFig + str(signalN) + "N" + str(noiseN) + ".png";
     gs.tight_layout(fig);
     plt.savefig(filenameFig);
