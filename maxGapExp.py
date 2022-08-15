@@ -119,7 +119,7 @@ def main():
     alpha = 0.9; 
 
     signalN = int(sys.argv[1]);
-    noiseN  = 0;                       #noise number
+    noiseN  = 10;                       #noise number
     np.random.seed(2);
 
     dataN   = noiseN + signalN;
@@ -341,7 +341,7 @@ def main():
              linewidth=2, color="orange", linestyle="steps-mid");
     ax1.set_title("Signal Upper Bound from C0(green)&CMAX(orange)", \
                   fontsize=20, y=1.03);
-    ax1.set_xlabel("norm upper bound", fontsize=18);
+    ax1.set_xlabel("signal upper bound", fontsize=18);
     ax1.set_ylabel("count", fontsize=18);
     ax1.set_xlim(rangeNorm[0], rangeNorm[1]);
     ax1.axhline(y=0, xmin=0, xmax=1, color="black", linewidth=2);

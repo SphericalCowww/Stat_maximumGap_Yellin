@@ -201,7 +201,7 @@ def main():
              linewidth=2, linestyle="steps-mid");
     ax1.set_title("Signal Upper Bound, C0(green)&CMAX(orange)&Poi(purple)", \
                   fontsize=16, y=1.03);
-    ax1.set_xlabel("norm upper bound", fontsize=18);
+    ax1.set_xlabel("signal upper bound", fontsize=18);
     ax1.set_ylabel("count", fontsize=18);
     ax1.set_xlim(rangeNorm[0], rangeNorm[1]);
     ax1.axhline(y=0, xmin=0, xmax=1, color="black", linewidth=2);
