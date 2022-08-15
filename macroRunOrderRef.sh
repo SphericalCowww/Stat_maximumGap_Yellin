@@ -14,10 +14,13 @@ do
     time $PYTHON_PATH/python3 maxGapOptIntAlpha.py $j
 done
 
-#testing one a few cases from simulated data
+#getting the upper count limit from the simulated data
 for j in `seq 1 1 60`
 do
    time $PYTHON_PATH/python3 maxGapExp.py $j
+done
+for j in `seq 1 1 60`
+do
    time $PYTHON_PATH/python3 poissonExp.py $j
 done
 time $PYTHON_PATH/python3 upperBoundComparison.py

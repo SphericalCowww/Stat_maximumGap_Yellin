@@ -60,6 +60,8 @@ With the PYTHONPATH set correctly for `macroRunOrderRef.sh`. However, even then 
 </kbd>
     
 - The plot shows the ratio (estimated signal upper bound)/(true signal count) as a function of the true signal count $N_{sig}$. The estimations are done by $C_0$ (green), $C_{max}$ (orange), and Poisson (purple). Note for this specific result, the noise count is set to be as large as $N_{noise}=100$.
+
+Note: the `incBoundary = False` mode has not been fully implemented, but the 0.0 and 1.0 boundary is included when selecting the gaps from Yellin's.
     
 References:
 - S. Yellin, Phys. Rev. D 66, 032005 (2002) (<a href="https://journals.aps.org/prd/abstract/10.1103/PhysRevD.66.032005">Phy Rev D</a>, <a href="https://arxiv.org/abs/physics/0203002">arxiv</a>)
