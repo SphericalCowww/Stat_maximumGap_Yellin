@@ -66,6 +66,6 @@ Note: given a signal distribution (should be normalized), an overall amplitude $
 - The plot shows the ratio (estimated signal upper bound)/(true signal count) as a function of the true signal count $N_{sig}$. The estimations are done by $C_0$ (green), $C_{max}$ (orange), and Poisson (purple). Note for this specific result, the noise count is set to be as large as $N_{noise}=100$.
     
 References:
-- S. Yellin, Phys. Rev. D 66, 032005 (2002) (<a href="https://journals.aps.org/prd/abstract/10.1103/PhysRevD.66.032005">Phy Rev D</a>, <a href="https://arxiv.org/abs/physics/0203002">arxiv</a>)
+- S. Yellin, Phys. Rev. D 66, 032005 (2002) (<a href="https://journals.aps.org/prd/abstract/10.1103/PhysRevD.66.032005">Phy Rev D</a>, <a href="https://arxiv.org/abs/physics/0203002">arXiv</a>)
 - Wikipedia: Probability integral transform (<a href="https://en.wikipedia.org/wiki/Probability_integral_transform">wiki</a>)
 - github: Inverse Transform Sampling (<a href="https://stephens999.github.io/fiveMinuteStats/inverse_transform_sampling.html">github</a>)
