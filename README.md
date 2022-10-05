@@ -9,7 +9,7 @@ runs with the `PYTHONPATH` set correctly in `macroRunOrderRef.sh`. However, even
     
 `mergePickle.py`: helper code that merges two pickle files, which help avoid having to rerun through the entire for loop (as in `macroRunOrderRef.sh`) for each output reference pickle files.
 
-`uniTransSampling.py`, `invTransSampling.py`: example codes for probability integral transform and inverse transform sampling, which help explaining what it means by "distributed uniformly with unit density" before Eq.2 in Yellin's paper.
+`uniTransSampling.py`, `invTransSampling.py`: example codes for probability integral transform and inverse transform sampling, which help explaining what it means by "distributed uniformly with unit density" before Eq.2 in Yellin's paper. Note that the inverse transform sampling is bascially used in Monte-Carlo sampling with the CDF (instead of with the acceptance-rejection method).
 
 `maxGapDistrGen.py`: Monte Carlo code that generates the probabily distribution $P(x, N, J)$: the probability of sampling $N$ points in a uniform distribution $y \in [0, 1]$, such that the maxium gap distance is $x = y_2 - y_1$ for any two points $y_1 < y_2$ among the $N+2$ points including the boundary 0 and 1, such that there are $J$ other points $y_i$ in between $[y_1, y_2]$. The output is saved in `pickle/maxGapDistr.pickle` for reference by the later codes. Turn on "testMode = True" to check out the code's functionality. This code is the most time consuming piece of the method, but it only needs to be done once.
 
