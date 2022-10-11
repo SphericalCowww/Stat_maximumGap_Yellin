@@ -32,7 +32,7 @@ def main():
     gausMu = 1.5;
     gausSig = 0.5;
 #histogram
-    nbins = np.linspace(rangeX[0], rangeX[1], binN);
+    nbins = np.linspace(rangeX[0], rangeX[1], binN+1)[:-1];
     uniformPDF = np.random.uniform(0, 1, sampleN);
     uniformHist = np.zeros(binN);
     expHist = np.zeros(binN);
@@ -54,21 +54,21 @@ def main():
     ax2 = fig.add_subplot(gs[2]);
     ax3 = fig.add_subplot(gs[3]);
     #plot 0
-    ax0.plot(nbins, uniformHist, linewidth=2,color="blue",linestyle="steps-mid");
+    ax0.plot(nbins, uniformHist, linewidth=2,color="blue",drawstyle="steps-post");
     ax0.set_title("Uniform Distribution", fontsize=24, y=1.03);
     ax0.set_xlabel("x", fontsize=18);
     ax0.set_ylabel("count", fontsize=18);
     ax0.set_xlim(rangeX[0], rangeX[1]);
     ax0.set_ylim(bottom=0);
     #plot 1
-    ax1.plot(nbins, expHist, linewidth=2,color="blue",linestyle="steps-mid");
+    ax1.plot(nbins, expHist, linewidth=2, color="blue", drawstyle="steps-post");
     ax1.set_title("Exopential Distribution", fontsize=24, y=1.03);
     ax1.set_xlabel("x", fontsize=18);
     ax1.set_ylabel("count", fontsize=18);
     ax1.set_xlim(rangeX[0], rangeX[1]);
     ax1.set_ylim(bottom=0);
     #plot 2
-    ax2.plot(nbins, gausHist, linewidth=2,color="blue",linestyle="steps-mid");
+    ax2.plot(nbins, gausHist, linewidth=2, color="blue", drawstyle="steps-post");
     ax2.set_title("Normal Distribution", fontsize=24, y=1.03);
     ax2.set_xlabel("x", fontsize=18);
     ax2.set_ylabel("count", fontsize=18);

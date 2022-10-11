@@ -60,8 +60,7 @@ def main():
     inGapPtNs   = df["inGapPtN"].values.tolist();
     maxGapHists = df["PDF"].values.tolist();
 #data
-    nbins = np.linspace(rangeX[0], rangeX[1], binN+1);
-    nbins = nbins[:-1];
+    nbins = np.linspace(rangeX[0], rangeX[1], binN+1)[:-1];
     binSize = 1.0*(rangeX[1]-rangeX[0])/binN;   
  
     maxGapProbDistr = np.zeros(binN);
@@ -87,7 +86,7 @@ def main():
     ax0 = fig.add_subplot(gs[0]);
     ax1 = fig.add_subplot(gs[1]); 
     #plot 0
-    ax0.plot(nbins, dataHist, linewidth=2, color="blue", linestyle="steps-mid");
+    ax0.plot(nbins, dataHist, linewidth=2, color="blue", drawstyle="steps-post");
     ax0.axhline(y=0, xmin=0, xmax=1, color="black", linewidth=2);
     ax0.set_title("Uniform Distribution", fontsize=24, y=1.03);
     ax0.set_xlabel("y", fontsize=18);
@@ -104,7 +103,7 @@ def main():
     for i, hist in enumerate(maxGapHists):
         gapSampleN = gapSampleNs[i];
         J = inGapPtNs[i]; 
-        ax1.plot(nbins, hist, linewidth=2, color="blue", linestyle="steps-mid");
+        ax1.plot(nbins, hist, linewidth=2, color="blue", drawstyle="steps-post");
         ax1.axhline(y=0, xmin=0, xmax=1, color="black", linewidth=2);
         strTemp = "Max Gap Distr, N=" + str(dataPtN) + ", J=" + str(i);
         ax1.set_title(strTemp, fontsize=24, y=1.03);

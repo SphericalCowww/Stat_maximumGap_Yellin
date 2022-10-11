@@ -167,8 +167,7 @@ def main():
 ##Yellin's C0 and CMAX
     if verbosity >= 1:
         print("Sampling the lower bound with signalN=" + str(signalN) + ":");
-    nbins = np.linspace(rangeX[0], rangeX[1], binN+1);
-    nbins = nbins[:-1];
+    nbins = np.linspace(rangeX[0], rangeX[1], binN+1)[:-1];
     signalCDF = gausCDF_lambda(signalMu, signalSig);    #signal shape
     mGapMu = signalCDF(rangeG[1]) - signalCDF(rangeG[0]);
     c0s = [];
@@ -308,7 +307,7 @@ def main():
         if rangeX[0] < x and x < rangeX[1]:
             histIdx = int(np.floor(binN*(x-rangeX[0])/(rangeX[1]-rangeX[0])));
             dataHist[histIdx] += 1;
-    nbinsNorm = np.linspace(rangeNorm[0], rangeNorm[1], binNNorm);
+    nbinsNorm = np.linspace(rangeNorm[0], rangeNorm[1], binNNorm+1)[:-1];
     c0Hist = np.zeros(binNNorm);
     cMAXHist = np.zeros(binNNorm);
     for norm in c0s:
@@ -327,18 +326,18 @@ def main():
     ax0 = fig.add_subplot(gs[0]);
     ax1 = fig.add_subplot(gs[1]);
     #plot 0
-    ax0.plot(nbins,dataHist,  linewidth=2,color="black",linestyle="steps-mid");
-    ax0.plot(nbins,noiseHist, linewidth=2,color="red", linestyle="steps-mid");
-    ax0.plot(nbins,signalHist,linewidth=2,color="blue",  linestyle="steps-mid");
+    ax0.plot(nbins, dataHist,   linewidth=2, color="black", drawstyle="steps-post");
+    ax0.plot(nbins, noiseHist,  linewidth=2, color="red",   drawstyle="steps-post");
+    ax0.plot(nbins, signalHist, linewidth=2, color="blue",  drawstyle="steps-post");
     ax0.set_title("Generated Noise(red)&Signal(blue)", fontsize=24, y=1.03);
     ax0.set_xlabel("x", fontsize=18);
     ax0.set_ylabel("count", fontsize=18);
     ax0.set_xlim(rangeX[0], rangeX[1]);
     ax0.axhline(y=0, xmin=0, xmax=1, color="black", linewidth=2);
     #plot 1
-    ax1.plot(nbinsNorm, c0Hist, linewidth=2, color="green", linestyle="steps-mid");
+    ax1.plot(nbinsNorm, c0Hist, linewidth=2, color="green", drawstyle="steps-post");
     ax1.plot(nbinsNorm, cMAXHist,\
-             linewidth=2, color="orange", linestyle="steps-mid");
+             linewidth=2, color="orange", drawstyle="steps-post");
     ax1.set_title("Signal Upper Bound from C0(green)&CMAX(orange)", \
                   fontsize=20, y=1.03);
     ax1.set_xlabel("signal upper bound", fontsize=18);

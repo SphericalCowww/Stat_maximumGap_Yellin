@@ -261,7 +261,7 @@ def main():
         if rangeX[0] < x and x < rangeX[1]:
             histIdx = int(np.floor(binN*(x-rangeX[0])/(rangeX[1]-rangeX[0])));
             signalHist[histIdx] += 1;
-    nbinsNorm = np.linspace(rangeNorm[0], rangeNorm[1], binNNorm);
+    nbinsNorm = np.linspace(rangeNorm[0], rangeNorm[1], binNNorm+1)[:-1];
     cMAXHist = np.zeros((len(alphas), binNNorm));
     for a, alpha in enumerate(alphas):
         for norm in cMAXsAlpha[a]:
@@ -277,7 +277,7 @@ def main():
     ax0 = fig.add_subplot(gs[0]);
     for c, color in enumerate(colors):
         ax0.plot(nbinsNorm, cMAXHist[min(c*jump, len(cMAXHist)-1)],\
-                 linewidth=2, color=color, linestyle="steps-mid", \
+                 linewidth=2, color=color, drawstyle="steps-post", \
                  alpha=(1.0-0.2*jump));
     ax0.set_title("Signal Upper Bound, CMAX under input alpha", \
                   fontsize=20, y=1.03);
