@@ -87,7 +87,7 @@ def main():
     ax3.set_ylim(bottom=0);
 #save plots
     exepath = os.path.dirname(os.path.abspath(__file__));
-    filenameFig = exepath + "/fig/uniTransSampling.png";
+    filenameFig = exepath + "/figure/uniTransSampling.png";
     gs.tight_layout(fig);
     plt.savefig(filenameFig);
 
